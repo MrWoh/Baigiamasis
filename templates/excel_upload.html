@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+<body style="margin-top: 30px;margin-left: 30px;">
+    {% if message %}
+    <center>
+        <h2> {{ message }} </h2>
+    </center>
+    {% else %}
+    <div>
+        <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" title="Upload excel file" name="myfile" style="border: 1px solid black; padding: 5px;"
+                required="required">
+            <p>
+                <input type="submit" value="Upload"
+                    style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+        </form>
+    </div>
+    {% endif %}
+    <hr>
+    <a href="{% url 'my_supplier_list' %}" class="btn btn-warning" style="color: black">
+        My Suppliers</a>
+</body>
+{% endblock content %}

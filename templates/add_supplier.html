@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <ul>
+        <div class="grid_background">
+            <ul class="grid">
+                <li class="grid_list">
+                    <div class="box">
+                        <div>
+                            <a class="supp_name">{{ supplier.name }}</a>
+                            {% crispy form %}
+                            <hr>
+                            <input type="submit" class="btn btn-info" />
+                            <br />
+                            <hr>
+                            <a href="{% url 'suppliers' %}" style="color:black"> Cancel</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ul>
+</form>
+{% endblock content %}

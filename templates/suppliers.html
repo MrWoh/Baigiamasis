@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+<h1>List of suppliers</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <ul>
+        <div class="grid_background">
+            <a href="{% url 'add_supplier' %}" style="color: black">
+                Add Supplier</a>
+            <ul class="grid">
+                {% for supplier in suppliers %}
+                <li class="grid_list">
+                    <div class="box">
+                        {{ supplier }}
+                        <hr>
+                        {{ supplier.description }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </ul>
+</form>
+
+
+{% endblock content %}

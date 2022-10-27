@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<ul>
+    <div class="grid_background">
+        <ul class="grid">
+            <div>
+                <li class="supp_name">{{ order.supplier.name }}</li>
+                <hr>
+                <li> Delivery date: {{ order.date_delivery }}</li>
+                <li> Order name: {{ order.order_name }}</li>
+                <hr>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>price</th>
+                            <th>Order Code</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                            {% if order.get_cart_total != None %}
+                            <th colspan=2>
+                                <strong class="pull-right">Order Total:</strong>
+                            </th>
+                            <th colspan=1>
+                                $<strong>{{ order.get_cart_total|floatformat:2 }} €</strong>
+                            </th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.get_order_items %}
+                        <tr>
+                            <td>{{ item.product.product_name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.product.get_unit_display }}</td>
+                            <td>{{ item.product.price|floatformat:2 }} €</td>
+                            <td>{{ item.product.order_code|default_if_none:"&nbsp;" }}</td>
+                            <td>
+                                <a href="{% url 'edit_order_item' item.id %}" class="btn btn-warning"
+                                    style="color: black">
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'remove_from_order' item.id %}" class="btn btn-warning"
+                                    style="color: black">
+                                    Remove
+                                </a>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <a href="{% url 'edit_order' order.id %}" class="btn btn-warning" style="color: black">
+                    Edit Order
+                </a>
+                <a>&nbsp;</a>
+                <a href="{% url 'order_success' order.id order.supplier_id%}" class="btn btn-warning"
+                    style="color: black">
+                    Send Order Email
+                </a>
+                <br />
+                <hr />
+                <br />
+                <a href="{% url 'my_supplier_list' %}" class="btn btn-warning" style="color: black"> My Suppliers </a>
+            </div>
+        </ul>
+    </div>
+</ul>
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+{% endblock content %}

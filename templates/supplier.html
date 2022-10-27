@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <ul>
+        <div class="grid_background">
+            <ul class="grid">
+                <li class="grid_list">
+                    <div class="box">
+                        <button class="btn btn-warning" href="{% url 'edit_supplier' supplier.id %}"
+                            style="float: right; color: black">Edit</button>
+                        <a class="supp_name"> {{ suppliers.name}} </a>
+                        <ul class="df">
+                            <li class="list_supp_info">E-mail: {{ suppliers.email }}</li>
+                            <li class="list_supp_info">Phone number: {{ suppliers.phone }}</li>
+                            <br />
+                            <br />
+                            <li class="list_supp_info"><a style="color: black"
+                                    href="{% url 'product_list' %}?supplier_id={{supplier.id}}">
+                                    {{ suppliers.name}} Products</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ul>
+</form>
+{% endblock content %}

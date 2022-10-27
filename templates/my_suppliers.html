@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <ul>
+        <div class="grid_background">
+            <ul class="grid">
+                <a href="{% url 'add_supplier' %}" style="color: black">
+                    Add Supplier</a><br />
+                {% for supplier in my_suppliers %}
+                <li class="grid_list">
+                    <div class="box">
+                        <ul class="df">
+                            <div>
+                                <br />
+                                <li class="supp_name">{{ supplier.supplier.name }}</li>
+                                <li class="list_supp_info">{{ supplier.email }}<br>{{ supplier.phone }}</li>
+                                <hr>
+                                <br />
+                                <a href="{% url 'product_list' %}?supplier_id={{supplier.id}}"
+                                    style="float: left; color: black">Products</a><br />
+                                <a href="{% url 'edit_supplier' supplier.id %}" style="color: black">
+                                    Edit Supplier</a>
+                            </div>
+                        </ul>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </ul>
+</form>
+{% endblock content %}

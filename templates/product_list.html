@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+<form action="" method="post">
+    {% csrf_token %}
+    <ul>
+        <div class="grid_background">
+            <ul class="grid" style="width: 60%; border: 1px; border-color: black;">
+                <ul class="df">
+                    <div>
+                        <a href="{% url 'my_order' %}" class="btn btn-warning" style="color: black">
+                            My Order</a><br />
+                        <a href="{% url 'my_supplier_list' %}" class="btn btn-warning" style="color: black">
+                            My Suppliers</a>
+                        <br />
+                        <hr>
+                        <table>
+                            <tr>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th>Code</th>
+                                <th>Price</th>
+                                <th>Add</th>
+                            </tr>
+                            <tr>
+                                {% for item in products %}
+                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.get_unit_display }}</td>
+                                <td>{{ item.order_code|default_if_none:"&nbsp;" }}</td>
+                                <td>{{ item.price }}€</td>
+                                <td>
+                                    <a href="{% url 'add_to_order' item.id item.supplier_id%}" class="btn btn-warning"
+                                        style="color: black">Add</a>
+                                </td>
+                    </div>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+                    <br />
+                    <hr>
+                    <a href="{% url 'upload' %}" class="btn btn-warning" style="color: black">Add
+                        Products</a>
+                    <br />
+                    <hr>
+        </div>
+        <br />
+        <br />
+    </ul>
+    </li>
+    </ul>
+    </div>
+    </ul>
+</form>
+{% endblock content %}

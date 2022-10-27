@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <ul>
+        <div class="grid_background">
+            <ul class="grid">
+                <li class="grid_list">
+                    <div class="box">
+                        <div>
+                            <form method="POST">
+                                {% crispy form %}
+                                <hr>
+                                <input type="submit" class="btn btn-info" />
+                                <button><a href="{% url 'my_supplier_list' %}" style="color: black"></a>Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ul>
+</form>
+{% endblock content %}

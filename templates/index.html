@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    <ul>
+        <div class="grid_background">
+            <ul class="grid">
+                {% if user.is_authenticated %}
+                <h1>Index</h1>
+                <h1>Manage orders</h1>
+                {% else %}
+                <h1>You are not signed in.</h1>
+                <br />
+                <h1>
+                    <a href="{% url 'login' %}" style="color: #000000">Login</a>
+                    <a href="{% url 'register' %}" style="color: #000000">Register</a>
+                </h1>
+                {% endif %}
+            </ul>
+        </div>
+    </ul>
+</form>
+{% endblock content %}

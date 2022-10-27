@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+<script type="text/javascript">
+    calculate0 = function () {
+        var unit = document.getElementById('a1').value;
+        var price = document.getElementById('a2').value;
+        document.getElementById('a3').value = (parseInt(unit) / 1000 * parseInt(price).toFixed(2));
+
+    }
+    calculate1 = function () {
+        var unit = document.getElementById('b1').value;
+        var price = document.getElementById('b2').value;
+        document.getElementById('b3').value = (parseInt(unit) / 1000 * parseInt(price).toFixed(2));
+
+    }
+    calculate2 = function () {
+        var unit = document.getElementById('c1').value;
+        var price = document.getElementById('c2').value;
+        document.getElementById('c3').value = (parseInt(unit) / 1000 * parseInt(price).toFixed(2));
+
+    }
+    function no_vat() {
+        const unit_1 = document.getElementById('a3').value;
+        const unit_2 = document.getElementById('b3').value;
+        const unit_3 = document.getElementById('c3').value;
+        const sum = parseInt(unit_1) + parseInt(unit_2) + parseInt(unit_3);
+        const selling_price = document.getElementById('selling_price').value;
+        document.getElementById('no_vat_output').value = parseInt(sum);
+        document.getElementById('vat_output').value = (parseInt(sum) * 1.09).toFixed(2);
+        document.getElementById('cost').value = (((parseInt(sum) * 1.09) / parseInt(selling_price)) * 100).toFixed(0);
+    }
+
+</script>
+<br />
+<br />
+<br />
+
+<div class="grid_background">
+    <form name="form1" onsubmit="false" style="width: 45%; margin-left: 20%; margin-right: auto;">
+        <fieldset>
+            <legend>Calculations</legend>
+            <input id="name" type="text" name="name" value="Calculation Name" />
+            <div>
+                <a>Select Product Unit Price Price Output</a>
+            </div>
+            <div>
+                <select id=" select_product">
+                    {% for i in '12345' %}
+                    <option value="product_{{i}}">product{{i}}</option>
+                    {% endfor %}
+                </select>
+                <input id="a1" type="number" value="452" oninput="calculate0()" onblur="calculate0()" />
+                <input id="a2" type="number" value="23.75" oninput="calculate0()" onblur="calculate0()" />
+                <input id="a3" type="number" value="0" readonly="readonly" onblur="calculate0()" />
+            </div>
+            <div>
+                <select id="select_product">
+                    {% for i in '12345' %}
+                    <option value="product_{{i}}">product{{i}}</option>
+                    {% endfor %}
+                </select>
+                <input id="b1" type="number" value="31" oninput="calculate1()" onblur="calculate1()" />
+                <input id="b2" type="number" value="17.75" oninput="calculate1()" onblur="calculate1()" />
+                <input id="b3" type="number" value="0" readonly="readonly" onblur="calculate1()" />
+            </div>
+            <div>
+                <select id="select_product">
+                    {% for i in '12345' %}
+                    <option value="product_{{i}}">product{{i}}</option>
+                    {% endfor %}
+                </select>
+                <input id="c1" type="number" value="250" oninput="calculate2()" onblur="calculate2()" />
+                <input id="c2" type="number" value="45.32" oninput="calculate2()" onblur="calculate2()" />
+                <input id="c3" type="number" value="0" readonly="readonly" onblur="calculate0()" />
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="grid_background">
+    <form name="form1" onsubmit="false" style="width: 35%; margin-left: 25%; margin-right: auto;">
+        <fieldset>
+            <div>
+                <input id="no_vat_output" value="0" type="number" readonly="readonly"
+                    style='margin-left: auto; margin-right: auto;' />
+                <label for="no_vat_output">Total Without VAT</label>
+            </div>
+            <div>
+                <input name='total' id="vat_output" value="0" type="number" readonly="readonly" />
+                <label for="vat_output">Total with VAT</label>
+            </div>
+            <div>
+                <input id="selling_price" value="48.00" type="number" oninput='no_vat()' onblur='no_vat()'
+                    oninput="calculate0()" />
+                <label for="1">Selling Price</label>
+            </div>
+            <div>
+                <input id="cost" value="0" type="number" readonly="readonly" />
+                <label for="1">Cost</label>
+            </div>
+        </fieldset>
+    </form>
+    <button onclick="no_vat()" style="width: 10%; margin-left: 30%;">Print</button>
+    <button onclick="save()" style="width: 10%; margin-left: 2%;">Save</button>
+</div>
+
+{% endblock content %}

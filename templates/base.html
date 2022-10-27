@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MANAGER APP</title>
+</head>
+
+<body>
+  <nav class="navbar">
+    <!-- LOGO -->
+    <div class="logo">MANAGER</div>
+    <!-- NAVIGATION MENU -->
+    <ul class="nav-link">
+      <!-- NAVIGATION MENUS -->
+      <div class="menu">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'suppliers' %}">SUPPLIERS</a>
+        </li>
+        <!-- USER LINKS -->
+        {% if user.is_authenticated %}
+        <li class="services">
+          <a href="{% url 'profile' %}">{{ user.get_username }}</a>
+          <ul class="dropdown">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'my_supplier_list' %}">MY SUPPLIERS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'calculations' %}">CALCULATIONS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
+            </li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="services">
+          <a href="/">ACCOUNT</a>
+          <ul class="dropdown">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+            </li>
+          </ul>
+        </li>
+        {% endif %}
+      </div>
+    </ul>
+  </nav>
+</body>
+<div class="container">
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% block content %}{% endblock content %}
+
+</html>
